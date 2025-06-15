@@ -15,7 +15,6 @@ const SceneCanvas: React.FC = () => {
 
   return (
     <div className="w-full h-screen bg-black absolute inset-0 z-10">
-        <FireSound url="/sounds/fire_sound.mp3" />
       <Canvas>
         <PerspectiveCamera
           makeDefault
@@ -30,6 +29,7 @@ const SceneCanvas: React.FC = () => {
         <GeoTexture />
         
         {/* 焚き火の音 */}
+        <FireSound url="/sounds/fire_sound.mp3" />
         <ClicketSound url="/sounds/cricket_sound.mp3" />
         <OrbitControls
           ref={controlsRef}

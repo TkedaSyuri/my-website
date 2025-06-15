@@ -15,7 +15,7 @@ const GeoTexture = () => {
           map={glassFieldTexture}
           side={DoubleSide}
           displacementMap={glassFieldTexture}
-          displacementScale={0.5}
+          displacementScale={0.8}
         />
       </Plane>
     </>
