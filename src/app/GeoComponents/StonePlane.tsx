@@ -9,7 +9,7 @@ const StoneCircle: React.FC = () => {
 
   return (
     <Circle
-      args={[2, 128]}               // [radius, segments]
+      args={[2.8, 128]}               // [radius, segments]
       rotation={[-Math.PI / 2, 0, 0]}
       position={[0, -0.2, 0]}
     >
@@ -17,7 +17,7 @@ const StoneCircle: React.FC = () => {
         map={map}
         side={DoubleSide}
         displacementMap={map}
-        displacementScale={0.1}
+        displacementScale={0.8}
       />
     </Circle>
   );
