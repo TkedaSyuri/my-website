@@ -3,6 +3,7 @@ import FireEffect from "./FireEffect";
 import FireLight from "./FireLight";
 import SmokeEffect from "./SmokeEffect";
 import * as THREE from "three";
+import { StoneRing } from "./StoneRing";
 
 const BornFire = () => {
   /* ① 木目テクスチャを一度だけ読み込み */
@@ -19,7 +20,7 @@ const BornFire = () => {
         return (
           <group key={i} rotation={[0, angle, 0]}>
             <mesh
-              position={[0, offset, -0.5]}
+              position={[0, offset * 1.2, -0.5]}
               rotation={[1.4, 0, 0]}
               castShadow
             >
@@ -37,6 +38,7 @@ const BornFire = () => {
       <FireEffect />
       <FireLight />
       <SmokeEffect />
+      <StoneRing/>
     </group>
   );
 };

@@ -5,11 +5,12 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import type { OrbitControls as ThreeOrbitControls } from "three-stdlib";
 
-import GeoTexture from "../GeoComponents/GeoGround";
 import BornFire from "../GeoComponents/BornFire/BornFire";
 import { FireSound } from "../GeoComponents/BornFire/FireSound";
 import { ClicketSound } from "../GeoComponents/ClicketSound";
 import { Fireflies } from "../GeoComponents/Fireflies";
+import StonePlane from "../GeoComponents/StonePlane";
+import GrassPlane from "../GeoComponents/GrassPlane";
 
 const SceneCanvas: React.FC = () => {
   const controlsRef = useRef<ThreeOrbitControls>(null!);
@@ -27,7 +28,8 @@ const SceneCanvas: React.FC = () => {
 
         <ambientLight intensity={0.5} />
         <BornFire />
-        <GeoTexture />
+        <StonePlane/>
+        <GrassPlane/>
         <Fireflies/>
         {/* 焚き火の音 */}
         <FireSound url="/sounds/fire_sound.mp3" />

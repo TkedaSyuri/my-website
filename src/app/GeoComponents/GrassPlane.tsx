@@ -2,7 +2,7 @@ import { Plane, useTexture } from "@react-three/drei";
 import React from "react";
 import { DoubleSide } from "three";
 
-const GeoTexture = () => {
+const GrassPlane = () => {
   const glassFieldTexture = useTexture("/textures/grass2.jpg");
   return (
     <>
@@ -22,4 +22,4 @@ const GeoTexture = () => {
   );
 };
 
-export default GeoTexture;
+export default GrassPlane;

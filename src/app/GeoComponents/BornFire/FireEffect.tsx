@@ -44,11 +44,11 @@ const FireEffect = () => {
         [0, Math.PI / 2, Math.PI / 4].map((angle, j) => (
           <mesh
             key={`${i}-${j}`}
-            position={[flame.x, flame.height / 3 + 0.5, flame.z]}
+            position={[flame.x, flame.height / 5 + 0.5, flame.z]}
             rotation={[0, angle, 0]}
             
           >
-            <coneGeometry args={[0.25, flame.height, 17]} />
+            <coneGeometry args={[0.4, flame.height, 18]} />
             <fireShaderMaterial
               ref={(el: ShaderMaterial & FireShaderMaterialType | null) => {
                 if (el) materialRefs.current[i * 3 + j] = el;
