@@ -11,7 +11,7 @@ const SmokeEffect = () => {
   const smokeRefs = useRef<Mesh[]>([]);
 
   /* 半透明 PNG をロード（public/texture/smoke.png）*/
-  const smokeTexture = useLoader(TextureLoader, "/texture/smoke2.png");
+  const smokeTexture = useLoader(TextureLoader, "/textures/smoke2.png");
 
   /* 初期データをランダム生成（放射状＋高さ・大きさ・透明度） */
   const smokeParticles = useMemo(

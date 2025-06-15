@@ -6,7 +6,7 @@ import * as THREE from "three";
 
 const BornFire = () => {
   /* ① 木目テクスチャを一度だけ読み込み */
-  const barkTex = useTexture("/texture/firewood3.jpg");
+  const barkTex = useTexture("/textures/firewood3.jpg");
   barkTex.wrapS = barkTex.wrapT = THREE.RepeatWrapping; // タイル可
   barkTex.repeat.set(2, 1); // 横方向 2 周期
 
