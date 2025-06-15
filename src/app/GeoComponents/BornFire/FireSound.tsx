@@ -2,64 +2,57 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { PositionalAudio } from "@react-three/drei";
-import type { PositionalAudio as PositionalAudioImpl } from "three";
-
-// AudioContext を持つことを保証する型
-type AudioWithContext = PositionalAudioImpl & { context: AudioContext };
 
 interface FireSoundProps {
-  /** 音声ファイルのパス (public フォルダからの相対) */
+  /** public/sounds 以下の相対パス */
   url: string;
-  /** 音が減衰し始める距離 */
-  distance?: number;
   /** 音量 (0〜1) */
   volume?: number;
   /** ループ再生 */
   loop?: boolean;
-  /** 音源を置く位置 */
-  position?: [number, number, number];
 }
 
+/**
+ * ページ開いた瞬間に「ミュートで自動再生→アンミュート」で
+ * クリックなしに音を鳴らすシンプルなコンポーネント
+ */
 export const FireSound: React.FC<FireSoundProps> = ({
   url,
-  distance = 5,
   volume = 0.5,
   loop = true,
-  position = [0, 0, 0],
 }) => {
-  const soundRef = useRef<AudioWithContext>(null!);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const tryPlay = () => {
-      const audio = soundRef.current;
-      if (!audio) {
-        // ref がまだ割り当てられていなければ50ms後に再トライ
+      const a = audioRef.current;
+      if (!a) {
+        // audio 要素がまだマウントされていなければ 50ms 後に再トライ
         setTimeout(tryPlay, 50);
         return;
       }
-      // AudioContext がサスペンドなら再開
-      const ctx = audio.context;
-      if (ctx.state === "suspended") ctx.resume();
-
-      // パラメータ設定＆再生
-      audio.setRefDistance(distance);
-      audio.setLoop(loop);
-      audio.setVolume(volume);
-      audio.play();
+      a.loop = loop;
+      a.muted = true;     // まずミュートで再生をリクエスト
+      a.play()
+        .then(() => {
+          // 自動再生が許可されたらアンミュート＆音量セット
+          a.muted = false;
+          a.volume = volume;
+        })
+        .catch(() => {
+          // ミュート再生ならほとんどの場合この then が呼ばれます
+        });
     };
     tryPlay();
-  }, [distance, loop, volume]);
+  }, [url, volume, loop]);
 
   return (
-    <group position={position}>
-      <PositionalAudio
-        ref={soundRef}
-        url={url}
-        distance={distance}
-        loop={loop}
-        autoplay
-      />
-    </group>
+    <audio
+      ref={audioRef}
+      src={url}
+      autoPlay
+      playsInline
+      style={{ display: "none" }}
+    />
   );
 };
