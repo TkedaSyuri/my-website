@@ -1,4 +1,4 @@
-// src/components/ClicketSound.tsx
+// src/components/FireSound.tsx
 "use client";
 
 import React, { useEffect, useRef } from "react";

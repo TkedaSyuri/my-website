@@ -28,6 +28,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased
                     relative w-full h-screen overflow-hidden`}
       >
+        
         <div className="absolute inset-0 z-0">
           <SceneCanvas />
         </div>
