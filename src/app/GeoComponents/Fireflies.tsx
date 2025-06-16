@@ -7,8 +7,8 @@ import type { PointsMaterial } from "three";
 import { AdditiveBlending, BufferAttribute, Points as ThreePoints } from "three";
 
 export const Fireflies: React.FC = () => {
-  const count = 80;
-  const R = 6;
+  const count = 60;
+  const R = 7;
   const r = 1;
   const yVariance = 0.5;
   const scale = 1.5;
@@ -54,7 +54,7 @@ export const Fireflies: React.FC = () => {
 
     // 明滅アニメーション
     const m = matRef.current!;
-    m.size    = 0.05 + Math.sin(t * 5) * 0.005;
+    m.size    = 0.07 + Math.sin(t * 5) * 0.005;
     m.opacity = 0.7  + Math.sin(t * 3) * 0.1;
   });
 
@@ -63,7 +63,7 @@ export const Fireflies: React.FC = () => {
       <Points ref={pointsRef} positions={positions} stride={3} frustumCulled>
         <PointMaterial
           ref={matRef}
-          color="#ffff88"
+          color="green"
           size={0.09}
           sizeAttenuation
           transparent
