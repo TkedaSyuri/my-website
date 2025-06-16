@@ -20,7 +20,7 @@ const SceneCanvas: React.FC = () => {
       <Canvas>
         <PerspectiveCamera
           makeDefault
-          position={[7, 3, 10]}
+          position={[10, 3, 10]}
           fov={60}
           near={0.1}
           far={1000}
