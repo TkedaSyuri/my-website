@@ -1,23 +1,16 @@
-// src/components/FireSound.tsx
 "use client";
 
 import React, { useEffect, useRef } from "react";
 import { PositionalAudio } from "@react-three/drei";
 import type { PositionalAudio as PositionalAudioImpl } from "three";
 
-// AudioContext を持つことを保証する型
 type AudioWithContext = PositionalAudioImpl & { context: AudioContext };
 
 interface ClicketSoundProps {
-  /** 音声ファイルのパス (public フォルダからの相対) */
   url: string;
-  /** 音が減衰し始める距離 */
   distance?: number;
-  /** 音量 (0〜1) */
   volume?: number;
-  /** ループ再生 */
   loop?: boolean;
-  /** 音源を置く位置 */
   position?: [number, number, number];
 }
 
@@ -34,22 +27,23 @@ export const ClicketSound: React.FC<ClicketSoundProps> = ({
     const tryPlay = () => {
       const audio = soundRef.current;
       if (!audio) {
-        // ref がまだ割り当てられていなければ50ms後に再トライ
+        // まだセットされてなければ再トライ
         setTimeout(tryPlay, 50);
         return;
       }
-      // AudioContext がサスペンドなら再開
-      const ctx = audio.context;
-      if (ctx.state === "suspended") ctx.resume();
-
-      // パラメータ設定＆再生
+      // AudioContext resume & パラメータ
+      if (audio.context.state === "suspended") audio.context.resume();
       audio.setRefDistance(distance);
       audio.setLoop(loop);
       audio.setVolume(volume);
-      audio.play();
+
+      // すでに鳴っていなければ play()
+      if (!audio.isPlaying) {
+        audio.play();
+      }
     };
     tryPlay();
-  }, [distance, loop, volume]);
+  }, [url, distance, loop, volume]);
 
   return (
     <group position={position}>
@@ -58,7 +52,7 @@ export const ClicketSound: React.FC<ClicketSoundProps> = ({
         url={url}
         distance={distance}
         loop={loop}
-        autoplay
+        autoplay={false} // 自前で制御するので data-autoplay は false に
       />
     </group>
   );
